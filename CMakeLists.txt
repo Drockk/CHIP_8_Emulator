@@ -3,4 +3,4 @@ project(CHIP_8_Emulator)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(CHIP_8_Emulator main.cpp)
+add_executable(CHIP_8_Emulator main.cpp Chip8.cpp Chip8.h)
