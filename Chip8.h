@@ -7,6 +7,8 @@
 
 #include <cstdint>
 #include <string>
+#include <chrono>
+#include <random>
 
 class Chip8 {
 public:
@@ -14,6 +16,7 @@ public:
     uint8_t memory[4096]{};
     uint16_t index{};
     uint16_t pc{};
+    uint16_t stack[16]{};
     uint8_t sp{};
     uint8_t delayTimer{};
     uint8_t soundTimer{};
@@ -24,6 +27,14 @@ public:
     Chip8();
 
     void LoadROM(std::string_view filename);
+private:
+    void OP_00E0();
+    void OP_00EE();
+    void OP_1nnn();
+    void OP_2nnn();
+
+    std::default_random_engine randomEngine;
+    std::uniform_int_distribution<unsigned short> randomByte;
 };
 
 
