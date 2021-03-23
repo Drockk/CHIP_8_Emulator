@@ -32,6 +32,9 @@ private:
     void OP_00EE();
     void OP_1nnn();
     void OP_2nnn();
+    void OP_3xkk();
+    void OP_4xkk();
+
 
     std::default_random_engine randomEngine;
     std::uniform_int_distribution<unsigned short> randomByte;
