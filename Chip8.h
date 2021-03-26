@@ -34,6 +34,11 @@ private:
     void OP_2nnn();
     void OP_3xkk();
     void OP_4xkk();
+    void OP_5xy0();
+    void OP_6xkk();
+    void OP_7xkk();
+    void OP_8xy0();
+
 
 
     std::default_random_engine randomEngine;
