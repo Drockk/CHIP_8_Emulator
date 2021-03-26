@@ -7,10 +7,10 @@
 #include <fstream>
 
 const uint32_t START_ADDRESS = 0x200;
-const uint32_t FONTSET_SIZE = 80;
+const uint32_t FONT_SET_SIZE = 80;
 
 //TODO: Change it to std::array
-uint8_t fontset[FONTSET_SIZE] = {
+uint8_t fontSet[FONT_SET_SIZE] = {
                 0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
                 0x20, 0x60, 0x20, 0x20, 0x70, // 1
                 0xF0, 0x10, 0xF0, 0x80, 0xF0, // 2
@@ -53,8 +53,8 @@ void Chip8::LoadROM(std::string_view filename) {
 
 Chip8::Chip8(): pc(START_ADDRESS), randomEngine(std::chrono::system_clock::now().time_since_epoch().count()) {
     //Load fonts into memory.
-    for(uint32_t i{0}; i < FONTSET_SIZE; ++i) {
-        memory[FONTSET_SIZE + i] = fontset[i];
+    for(uint32_t i{0}; i < FONT_SET_SIZE; ++i) {
+        memory[FONT_SET_SIZE + i] = fontSet[i];
     }
 
     //Initialize RNG
