@@ -27,6 +27,7 @@ public:
     Chip8();
 
     void LoadROM(std::string_view filename);
+    void Cycle();
 private:
     void OP_00E0();
     void OP_00EE();
@@ -52,11 +53,33 @@ private:
     void OP_Cxkk();
     void OP_Dxyn();
     void OP_Ex9E();
+    void OP_ExA1();
+    void OP_Fx07();
+    void OP_Fx0A();
+    void OP_Fx15();
+    void OP_Fx18();
+    void OP_Fx1E();
+    void OP_Fx29();
+    void OP_Fx33();
+    void OP_Fx55();
+    void OP_Fx65();
+    void OP_NULL();
 
+    void Table0();
+    void Table8();
+    void TableE();
+    void TableF();
 
 
     std::default_random_engine randomEngine;
     std::uniform_int_distribution<unsigned short> randomByte;
+
+    typedef void (Chip8::*Chip8Func)();
+    Chip8Func table[0xF + 1]{&Chip8::OP_NULL};
+    Chip8Func table0[0xE + 1]{&Chip8::OP_NULL};
+    Chip8Func table8[0xE + 1]{&Chip8::OP_NULL};
+    Chip8Func tableE[0xE + 1]{&Chip8::OP_NULL};
+    Chip8Func tableF[0x65 + 1]{&Chip8::OP_NULL};
 };
 
 
