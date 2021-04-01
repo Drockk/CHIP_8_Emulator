@@ -10,6 +10,9 @@
 #include <chrono>
 #include <random>
 
+const uint32_t VIDEO_WIDTH = 64;
+const uint32_t VIDEO_HEIGHT = 32;
+
 class Chip8 {
 public:
     uint8_t registers[16]{};
@@ -26,8 +29,8 @@ public:
 
     Chip8();
 
-    void LoadROM(std::string_view filename);
-    void Cycle();
+    void loadRom(std::string_view filename);
+    void cycle();
 private:
     void OP_00E0();
     void OP_00EE();

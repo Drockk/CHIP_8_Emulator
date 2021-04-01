@@ -8,6 +8,7 @@
 
 const uint32_t START_ADDRESS = 0x200;
 const uint32_t FONT_SET_SIZE = 80;
+const unsigned int FONTSET_START_ADDRESS = 0x50;
 
 //TODO: Change it to std::array
 uint8_t fontSet[FONT_SET_SIZE] = {
@@ -29,7 +30,7 @@ uint8_t fontSet[FONT_SET_SIZE] = {
                 0xF0, 0x80, 0xF0, 0x80, 0x80  // F
         };
 
-void Chip8::LoadROM(std::string_view filename) {
+void Chip8::loadRom(std::string_view filename) {
     std::ifstream file(std::string(filename), std::ios::binary | std::ios::ate);
 
     if(file.is_open()) {
@@ -441,10 +442,10 @@ void Chip8::TableE() {
 }
 
 void Chip8::TableF() {
-    ((*this).*(tableF[opcode & 0X000Fu]))();
+    ((*this).*(tableF[opcode & 0X00FFu]))();
 }
 
-void Chip8::Cycle() {
+void Chip8::cycle() {
     //Fetch
     opcode = (memory[pc] << 8u) | memory[pc + 1];
 
