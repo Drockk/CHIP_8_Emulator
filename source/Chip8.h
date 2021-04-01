@@ -31,6 +31,7 @@ public:
 
     void loadRom(std::string_view filename);
     void cycle();
+
 private:
     void OP_00E0();
     void OP_00EE();

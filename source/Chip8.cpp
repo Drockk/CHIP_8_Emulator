@@ -426,7 +426,6 @@ void Chip8::OP_Fx65() {
 }
 
 void Chip8::OP_NULL() {
-
 }
 
 void Chip8::Table0() {
