@@ -27,7 +27,7 @@ public:
     void cycle();
 
     uint8_t* getKeypad();
-    const std::array<uint32_t, VIDEO_MEMORY>& getVideoMemory();
+    uint32_t* getVideoMemory();
 private:
     void OP_00E0();
     void OP_00EE();

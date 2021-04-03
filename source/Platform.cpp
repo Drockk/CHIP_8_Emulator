@@ -3,6 +3,66 @@
 //
 
 #include "Platform.h"
+enum InternalKeys {
+    C8_x = 0,
+    C8_1 = 1,
+    C8_2 = 2,
+    C8_3 = 3,
+    C8_q = 4,
+    C8_w = 5,
+    C8_e = 6,
+    C8_a = 7,
+    C8_s = 8,
+    C8_d = 9,
+    C8_c = 10,
+    C8_z = 11,
+    C8_4 = 12,
+    C8_r = 13,
+    C8_f = 14,
+    C8_v = 15,
+    C8_ESCAPE = 33
+};
+
+uint32_t getInternalKey(const SDL_Event& event) {
+    switch(event.key.keysym.sym) {
+        case SDLK_ESCAPE:
+            return InternalKeys::C8_ESCAPE;
+        case SDLK_x:
+            return InternalKeys::C8_x;
+        case SDLK_1:
+            return C8_1;
+        case SDLK_2:
+            return C8_2;
+        case SDLK_3:
+            return C8_3;
+        case SDLK_q:
+            return C8_q;
+        case SDLK_w:
+            return C8_w;
+        case SDLK_e:
+            return C8_e;
+        case SDLK_a:
+            return C8_a;
+        case SDLK_s:
+            return C8_s;
+        case SDLK_d:
+            return C8_d;
+        case SDLK_c:
+            return C8_c;
+        case SDLK_z:
+            return C8_z;
+        case SDLK_4:
+            return C8_4;
+        case SDLK_r:
+            return C8_r;
+        case SDLK_f:
+            return C8_f;
+        case SDLK_v:
+            return C8_v;
+    }
+
+    return -1;
+}
 
 Platform::Platform(const char *title, int windowWidth, int windowHeight, int textureWidth, int textureHeight) {
     SDL_Init(SDL_INIT_VIDEO);
@@ -39,115 +99,28 @@ bool Platform::ProcessInput(uint8_t *keys) {
                 quit = true;
                 break;
             case SDL_KEYDOWN: {
-                switch(event.key.keysym.sym) {
-                    case SDLK_ESCAPE:
-                        quit = true;
-                    break;
-                    case SDLK_x:
-                        keys[0] = 1;
-                    break;
-                    case SDLK_1:
-                        keys[1] = 1;
-                    break;
-                    case SDLK_2:
-                        keys[2] = 1;
-                    break;
-                    case SDLK_3:
-                        keys[3] = 1;
-                    break;
-                    case SDLK_q:
-                        keys[4] = 1;
-                    break;
-                    case SDLK_w:
-                        keys[5] = 1;
-                    break;
-                    case SDLK_e:
-                        keys[6] = 1;
-                    break;
-                    case SDLK_a:
-                        keys[7] = 1;
-                    break;
-                    case SDLK_s:
-                        keys[8] = 1;
-                    break;
-                    case SDLK_d:
-                        keys[9] = 1;
-                    break;
-                    case SDLK_c:
-                        keys[0xA] = 1;
-                    break;
-                    case SDLK_z:
-                        keys[0xB] = 1;
-                    break;
-                    case SDLK_4:
-                        keys[0xC] = 1;
-                    break;
-                    case SDLK_r:
-                        keys[0xD] = 1;
-                    break;
-                    case SDLK_f:
-                        keys[0xE] = 1;
-                    break;
-                    case SDLK_v:
-                        keys[0xF] = 1;
-                    break;
-                }
+                onKeyDown(keys, event, quit);
                 break;
             }
             case SDL_KEYUP: {
-                switch(event.key.keysym.sym) {
-                    case SDLK_x:
-                        keys[0] = 0;
-                        break;
-                    case SDLK_1:
-                        keys[1] = 0;
-                        break;
-                    case SDLK_2:
-                        keys[2] = 0;
-                        break;
-                    case SDLK_3:
-                        keys[3] = 0;
-                        break;
-                    case SDLK_q:
-                        keys[4] = 0;
-                        break;
-                    case SDLK_w:
-                        keys[5] = 0;
-                        break;
-                    case SDLK_e:
-                        keys[6] = 0;
-                        break;
-                    case SDLK_a:
-                        keys[7] = 0;
-                        break;
-                    case SDLK_s:
-                        keys[8] = 0;
-                        break;
-                    case SDLK_d:
-                        keys[9] = 0;
-                        break;
-                    case SDLK_c:
-                        keys[0xA] = 0;
-                        break;
-                    case SDLK_z:
-                        keys[0xB] = 0;
-                        break;
-                    case SDLK_4:
-                        keys[0xC] = 0;
-                        break;
-                    case SDLK_r:
-                        keys[0xD] = 0;
-                        break;
-                    case SDLK_f:
-                        keys[0xE] = 0;
-                        break;
-                    case SDLK_v:
-                        keys[0xF] = 0;
-                        break;
-                }
+                onKeyUp(keys, event, quit);
                 break;
             }
         }
     }
     return quit;
+}
+
+void Platform::onKeyDown(uint8_t* keys, const SDL_Event &event, bool &quit) {
+    auto key = getInternalKey(event);
+
+    if(key == InternalKeys::C8_ESCAPE)
+        quit = true;
+    else
+        keys[key] = 1;
+}
+
+void Platform::onKeyUp(uint8_t *keys, const SDL_Event &event, bool &quit) {
+    auto key = getInternalKey(event);
+    keys[key] = 0;
 }

@@ -17,6 +17,9 @@ public:
     bool ProcessInput(uint8_t* keys);
 
 private:
+    void onKeyDown(uint8_t* keys, const SDL_Event& event, bool& quit);
+    void onKeyUp(uint8_t* keys, const SDL_Event& event, bool& quit);
+
     SDL_Window* window{};
     SDL_Renderer* renderer{};
     SDL_Texture* texture{};

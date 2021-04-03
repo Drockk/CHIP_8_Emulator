@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
 
             chip8.cycle();
 
-            platform.Update(chip8.getVideoMemory().data(), videoPitch);
+            platform.Update(chip8.getVideoMemory(), videoPitch);
         }
     }
 

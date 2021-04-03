@@ -467,6 +467,6 @@ uint8_t *Chip8::getKeypad() {
     return keypad.data();
 }
 
-const std::array<uint32_t, VIDEO_MEMORY> &Chip8::getVideoMemory() {
-    return video;
+uint32_t* Chip8::getVideoMemory() {
+    return video.data();
 }
