@@ -28,6 +28,7 @@ public:
 
     uint8_t* getKeypad();
     uint32_t* getVideoMemory();
+
 private:
     void OP_00E0();
     void OP_00EE();
