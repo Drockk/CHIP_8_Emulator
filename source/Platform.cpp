@@ -29,7 +29,7 @@ void Platform::Update(const void *buffer, int pitch) {
 }
 
 bool Platform::ProcessInput(uint8_t *keys) {
-    bool quit{false};
+    auto quit{false};
 
     SDL_Event event;
 
@@ -149,6 +149,5 @@ bool Platform::ProcessInput(uint8_t *keys) {
             }
         }
     }
-
     return quit;
 }

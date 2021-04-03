@@ -106,7 +106,7 @@ Chip8::Chip8(): pc(START_ADDRESS), randomEngine(std::chrono::system_clock::now()
 }
 
 void Chip8::OP_00E0() {
-    memset(video, 0, sizeof video);
+    memset(video.data(), 0, sizeof video);
 }
 
 void Chip8::OP_00EE() {
@@ -461,4 +461,12 @@ void Chip8::cycle() {
     //Decrement the sound timer if it's been set
     if (soundTimer > 0)
         --soundTimer;
+}
+
+uint8_t *Chip8::getKeypad() {
+    return keypad.data();
+}
+
+const std::array<uint32_t, VIDEO_MEMORY> &Chip8::getVideoMemory() {
+    return video;
 }

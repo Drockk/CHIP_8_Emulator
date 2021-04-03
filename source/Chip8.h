@@ -9,29 +9,25 @@
 #include <string>
 #include <chrono>
 #include <random>
+#include <array>
 
-const uint32_t VIDEO_WIDTH = 64;
-const uint32_t VIDEO_HEIGHT = 32;
+constexpr uint32_t VIDEO_WIDTH { 64 };
+constexpr uint32_t VIDEO_HEIGHT { 32 };
+constexpr uint32_t VIDEO_MEMORY { VIDEO_WIDTH * VIDEO_HEIGHT };
+constexpr uint32_t REGISTER_COUNT { 16 };
+constexpr uint32_t KEY_COUNT { 16 };
+constexpr uint32_t STACK_LEVELS { 16 };
+constexpr uint32_t MEMORY_SIZE { 4096 };
 
 class Chip8 {
 public:
-    uint8_t registers[16]{};
-    uint8_t memory[4096]{};
-    uint16_t index{};
-    uint16_t pc{};
-    uint16_t stack[16]{};
-    uint8_t sp{};
-    uint8_t delayTimer{};
-    uint8_t soundTimer{};
-    uint8_t keypad[16]{};
-    uint32_t video[64 * 32]{};
-    uint16_t opcode;
-
     Chip8();
 
     void loadRom(std::string_view filename);
     void cycle();
 
+    uint8_t* getKeypad();
+    const std::array<uint32_t, VIDEO_MEMORY>& getVideoMemory();
 private:
     void OP_00E0();
     void OP_00EE();
@@ -74,9 +70,20 @@ private:
     void TableE();
     void TableF();
 
+    std::array<uint32_t, VIDEO_MEMORY> video{};
+    std::array<uint16_t, STACK_LEVELS> stack{};
+    uint16_t index{};
+    uint16_t pc{};
+    uint16_t opcode{};
+    std::array<uint8_t, MEMORY_SIZE> memory{};
+    std::array<uint8_t, REGISTER_COUNT> registers{};
+    std::array<uint8_t, KEY_COUNT> keypad{};
+    uint8_t sp{};
+    uint8_t delayTimer{};
+    uint8_t soundTimer{};
 
-    std::default_random_engine randomEngine;
-    std::uniform_int_distribution<unsigned short> randomByte;
+    std::default_random_engine randomEngine{};
+    std::uniform_int_distribution<unsigned short> randomByte{};
 
     typedef void (Chip8::*Chip8Func)();
     Chip8Func table[0xF + 1]{&Chip8::OP_NULL};

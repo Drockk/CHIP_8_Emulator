@@ -17,9 +17,9 @@ public:
     bool ProcessInput(uint8_t* keys);
 
 private:
-    SDL_Window* window{};//TODO Change to smart pointer
-    SDL_Renderer* renderer{};//TODO Change to smart pointer
-    SDL_Texture* texture{};//TODO Change to smart pointer
+    SDL_Window* window{};
+    SDL_Renderer* renderer{};
+    SDL_Texture* texture{};
 };
 
 
